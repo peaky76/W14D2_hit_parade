@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Song from "../components/Song";
+import SongList from "../components/SongList";
 
 class SongsContainer extends Component {
   constructor() {
@@ -13,15 +13,15 @@ class SongsContainer extends Component {
     const url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json";
     fetch(url)
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => this.setState({ songs: data.feed.entry }))
       .catch((error) => console.error(error));
   }
 
   render() {
     return (
       <>
-        <div>THIS CONTAINS SONGS</div>
-        <Song />
+        <div>iTunes Top 20</div>
+        <SongList songs={this.state.songs} />
       </>
     );
   }
